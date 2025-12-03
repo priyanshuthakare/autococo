@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { ArrowRight, Sparkles, Paperclip, Mic } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,12 +6,64 @@ import { AutocopilotAvatarGroup } from './AutocopilotAvatarGroup';
 
 export const AutocopilotHero = () => {
     const [inputValue, setInputValue] = useState('');
+    const [isListening, setIsListening] = useState(false);
+    const [selectedFile, setSelectedFile] = useState(null);
     const navigate = useNavigate();
+    const fileInputRef = useRef(null);
 
     const handleStart = () => {
         if (inputValue.trim()) {
-            navigate('/chat', { state: { initialPrompt: inputValue } });
+            navigate('/chat', { state: { initialPrompt: inputValue, attachedFile: selectedFile } });
         }
+    };
+
+    const handleFileClick = () => {
+        fileInputRef.current?.click();
+    };
+
+    const handleFileChange = (e) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setSelectedFile(file);
+        }
+    };
+
+    const toggleListening = () => {
+        if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+            alert('Speech recognition is not supported in this browser.');
+            return;
+        }
+
+        if (isListening) {
+            setIsListening(false);
+            // In a real app, we would stop the recognition instance here
+            return;
+        }
+
+        setIsListening(true);
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = 'en-US';
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            setInputValue(prev => prev + (prev ? ' ' : '') + transcript);
+            setIsListening(false);
+        };
+
+        recognition.onerror = (event) => {
+            console.error('Speech recognition error', event.error);
+            setIsListening(false);
+        };
+
+        recognition.onend = () => {
+            setIsListening(false);
+        };
+
+        recognition.start();
     };
 
     return (
@@ -47,22 +99,49 @@ export const AutocopilotHero = () => {
                                             handleStart();
                                         }
                                     }}
-                                    placeholder="Describe your idea..."
+                                    placeholder={isListening ? "Listening..." : "Describe your idea..."}
                                     className="w-full bg-transparent text-lg text-zinc-900 placeholder-zinc-400 resize-none outline-none min-h-[60px]"
                                 />
 
+                                {selectedFile && (
+                                    <div className="flex items-center gap-2 text-sm text-blue-600 bg-blue-50 px-3 py-1.5 rounded-lg w-fit">
+                                        <Paperclip size={14} />
+                                        <span className="truncate max-w-[200px]">{selectedFile.name}</span>
+                                        <button
+                                            onClick={() => setSelectedFile(null)}
+                                            className="ml-1 hover:text-blue-800"
+                                        >
+                                            ×
+                                        </button>
+                                    </div>
+                                )}
+
                                 <div className="flex items-center justify-between border-t border-zinc-100 pt-3">
                                     <div className="flex items-center gap-2">
-                                        <button className="p-2 text-zinc-400 hover:text-zinc-600 hover:bg-black/5 rounded-lg transition-colors">
+                                        <input
+                                            type="file"
+                                            ref={fileInputRef}
+                                            onChange={handleFileChange}
+                                            className="hidden"
+                                        />
+                                        <button
+                                            onClick={handleFileClick}
+                                            className="p-2 text-zinc-400 hover:text-zinc-600 hover:bg-black/5 rounded-lg transition-colors"
+                                            title="Attach file"
+                                        >
                                             <Paperclip size={20} />
                                         </button>
-                                        <button className="p-2 text-zinc-400 hover:text-zinc-600 hover:bg-black/5 rounded-lg transition-colors">
+                                        <button
+                                            onClick={toggleListening}
+                                            className={`p-2 rounded-lg transition-colors ${isListening ? 'text-red-500 bg-red-50 animate-pulse' : 'text-zinc-400 hover:text-zinc-600 hover:bg-black/5'}`}
+                                            title="Voice input"
+                                        >
                                             <Mic size={20} />
                                         </button>
                                         <div className="h-4 w-px bg-zinc-200 mx-1" />
                                         <button className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-zinc-600 bg-black/5 hover:bg-black/10 rounded-full transition-colors">
                                             <Sparkles size={14} className="text-purple-500" />
-                                            <span>Claude 3.5 Sonnet</span>
+                                            <span>Build With Team</span>
                                         </button>
                                     </div>
 

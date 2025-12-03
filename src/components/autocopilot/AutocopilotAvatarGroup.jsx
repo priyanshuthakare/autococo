@@ -3,10 +3,10 @@ import { Plus } from 'lucide-react';
 
 export const AutocopilotAvatarGroup = ({ showAddButton = true }) => {
     const avatars = [
-        { color: 'bg-amber-400', label: '' }, // Yellow
-        { color: 'bg-blue-400', label: '' },  // Blue
-        { color: 'bg-purple-400', label: '' }, // Purple
-        { color: 'bg-green-400', label: '' }, // Green
+        { src: '/agent1.png', label: 'Agent 1' },
+        { src: '/agent2.png', label: 'Agent 2' },
+        { src: '/agent3.png', label: 'Agent 3' },
+        { src: '/agent4.png', label: 'Agent 4' },
     ];
 
     return (
@@ -15,11 +15,10 @@ export const AutocopilotAvatarGroup = ({ showAddButton = true }) => {
                 {avatars.map((avatar, index) => (
                     <div
                         key={index}
-                        className={`relative w-10 h-10 rounded-full border-[3px] border-white ${avatar.color} flex items-center justify-center overflow-hidden shrink-0`}
-                        title={`User ${index + 1}`}
+                        className="relative w-10 h-10 rounded-full border-[3px] border-white bg-zinc-100 flex items-center justify-center overflow-hidden shrink-0"
+                        title={avatar.label}
                     >
-                        {/* Placeholder for avatar image */}
-                        {/* <img src="..." alt="" className="w-full h-full object-cover" /> */}
+                        <img src={avatar.src} alt={avatar.label} className="w-full h-full object-cover" />
                     </div>
                 ))}
 

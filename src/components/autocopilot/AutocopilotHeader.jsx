@@ -11,9 +11,7 @@ export const AutocopilotHeader = () => {
                 <div className="flex items-center justify-between h-12">
                     {/* Logo */}
                     <div className="flex-shrink-0 flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-black to-zinc-600 flex items-center justify-center">
-                            <span className="text-white font-bold text-lg">A</span>
-                        </div>
+                        <img src="/astronaut.png" alt="AutoCopilot Logo" className="w-8 h-8 object-contain" />
                         <span className="text-zinc-900 font-semibold text-xl tracking-tight">AutoCopilot</span>
                     </div>
 
@@ -21,6 +19,7 @@ export const AutocopilotHeader = () => {
                     <nav className="hidden md:flex items-center gap-8">
                         <Link to="#" className="text-black text-sm font-medium hover:text-black transition-colors">Product</Link>
                         <Link to="#" className="text-black text-sm font-medium hover:text-black transition-colors">Solutions</Link>
+                        <Link to="/dashboard" className="text-black text-sm font-medium hover:text-black transition-colors">Dashboard</Link>
                         <Link to="#" className="text-black text-sm font-medium hover:text-black transition-colors">Research</Link>
                         <Link to="#" className="text-black text-sm font-medium hover:text-black transition-colors">Docs</Link>
                         <Link to="#" className="text-black text-sm font-medium hover:text-black transition-colors">Pricing</Link>
