@@ -1,7 +1,7 @@
 import React from 'react';
 import { Plus } from 'lucide-react';
 
-export const MgxAvatarGroup = ({ showAddButton = true }) => {
+export const AutocopilotAvatarGroup = ({ showAddButton = true }) => {
     const avatars = [
         { color: 'bg-amber-400', label: '' }, // Yellow
         { color: 'bg-blue-400', label: '' },  // Blue

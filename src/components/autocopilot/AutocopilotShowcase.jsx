@@ -27,7 +27,7 @@ const showcases = [
     }
 ];
 
-export const MgxShowcase = () => {
+export const AutocopilotShowcase = () => {
     return (
         <section className="py-24 px-4 bg-background relative overflow-hidden">
             <div className="max-w-7xl mx-auto">

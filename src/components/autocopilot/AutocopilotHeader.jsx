@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
-export const MgxHeader = () => {
+export const AutocopilotHeader = () => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
     return (

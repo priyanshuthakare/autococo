@@ -1,6 +1,6 @@
 import { Github, Twitter } from 'lucide-react';
 
-export const MgxFooter = () => {
+export const AutocopilotFooter = () => {
     return (
         <footer className="border-t border-zinc-200 bg-zinc-50 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-4 py-12">

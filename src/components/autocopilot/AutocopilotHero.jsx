@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { ArrowRight, Sparkles, Paperclip, Mic } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-import { MgxAvatarGroup } from './MgxAvatarGroup';
+import { AutocopilotAvatarGroup } from './AutocopilotAvatarGroup';
 
-export const MgxHero = () => {
+export const AutocopilotHero = () => {
     const [inputValue, setInputValue] = useState('');
     const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ export const MgxHero = () => {
 
             <div className="relative z-10 w-full max-w-4xl mx-auto text-center space-y-8">
                 <div className="flex justify-center">
-                    <MgxAvatarGroup />
+                    <AutocopilotAvatarGroup />
                 </div>
                 {/* Main Heading */}
                 <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-zinc-900 mb-8 transition-colors duration-300">

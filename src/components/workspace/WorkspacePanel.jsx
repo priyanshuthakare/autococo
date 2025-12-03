@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Eye, Code, Smartphone, Monitor, RefreshCw, ExternalLink, Plug, ChevronRight, ChevronDown, File, Folder, FileJson, FileCode, Search } from 'lucide-react';
-import { MgxAvatarGroup } from '../mgx/MgxAvatarGroup';
+import { AutocopilotAvatarGroup } from '../autocopilot/AutocopilotAvatarGroup';
 
 // Mock File System Data
 const initialFileSystem = [
@@ -218,7 +218,7 @@ export const WorkspacePanel = () => {
 
                 <div className="flex items-center gap-2 relative">
                     <div className="mr-2 scale-75 origin-right">
-                        <MgxAvatarGroup showAddButton={false} />
+                        <AutocopilotAvatarGroup showAddButton={false} />
                     </div>
                     <button
                         onClick={() => setShowIntegrations(!showIntegrations)}
