@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Eye, Code, Smartphone, Monitor, RefreshCw, ExternalLink, Plug, ChevronRight, ChevronDown, File, Folder, FileJson, FileCode, Search } from 'lucide-react';
+import { MgxAvatarGroup } from '../mgx/MgxAvatarGroup';
 
 // Mock File System Data
 const initialFileSystem = [
@@ -45,28 +46,28 @@ const initialFileSystem = [
 ];
 
 const mockFileContent = {
-    'Index.tsx': `import { useState } from 'react';
-import Header from '@/components/Header';
-import Sidebar from '@/components/Sidebar';
-import AgentSelector from '@/components/AgentSelector';
-import ChatInterface from '@/components/ChatInterface';
-import CodePreview from '@/components/CodePreview';
-import { agents as initialAgents, sampleMessages, sampleFiles } from '@/lib/mockData';
-import { Message, Agent } from '@/types';
+    'Index.tsx': `import {useState} from 'react';
+    import Header from '@/components/Header';
+    import Sidebar from '@/components/Sidebar';
+    import AgentSelector from '@/components/AgentSelector';
+    import ChatInterface from '@/components/ChatInterface';
+    import CodePreview from '@/components/CodePreview';
+    import {agents as initialAgents, sampleMessages, sampleFiles} from '@/lib/mockData';
+    import {Message, Agent} from '@/types';
 
-export default function Index() {
+    export default function Index() {
   const [agents, setAgents] = useState<Agent[]>(initialAgents);
-  const [activeAgentId, setActiveAgentId] = useState(agents[0].id);
-  const [messages, setMessages] = useState<Message[]>(sampleMessages);
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+    const [activeAgentId, setActiveAgentId] = useState(agents[0].id);
+    const [messages, setMessages] = useState<Message[]>(sampleMessages);
+    const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   const handleSendMessage = (content: string) => {
     const newMessage: Message = {
-      id: \`m-\${Date.now()}\`,
-      agentId: 'user-001',
-      content,
-      timestamp: new Date(),
-      type: 'text',
+        id: \`m-\${Date.now()}\`,
+    agentId: 'user-001',
+    content,
+    timestamp: new Date(),
+    type: 'text',
     };
 
     setMessages([...messages, newMessage]);
@@ -74,62 +75,62 @@ export default function Index() {
     // Simulate agent response
     setTimeout(() => {
       const activeAgent = agents.find((a) => a.id === activeAgentId);
-      if (activeAgent) {
+    if (activeAgent) {
         const responseMessage: Message = {
-          id: \`m-\${Date.now()}-response\`,
-          agentId: activeAgent.id,
-          content: \`I understand you want to: "\${content}". Let me help you with that!\`,
-          timestamp: new Date(),
-          type: 'text',
+        id: \`m-\${Date.now()}-response\`,
+    agentId: activeAgent.id,
+    content: \`I understand you want to: "\${content}". Let me help you with that!\`,
+    timestamp: new Date(),
+    type: 'text',
         };
         setMessages((prev) => [...prev, responseMessage]);
       }
     }, 1000);
   };
 
-  return (
+    return (
     <div className="flex h-screen bg-background overflow-hidden">
-      <Sidebar 
-        collapsed={isSidebarCollapsed} 
-        setCollapsed={setIsSidebarCollapsed}
-      />
-      <div className="flex-1 flex flex-col min-w-0">
-        <Header />
-        <main className="flex-1 flex overflow-hidden">
-          <div className="flex-1 flex flex-col min-w-0 border-r border-border">
-            <AgentSelector 
-              agents={agents}
-              activeAgentId={activeAgentId}
-              onSelectAgent={setActiveAgentId}
-            />
-            <ChatInterface 
-              messages={messages}
-              onSendMessage={handleSendMessage}
-              activeAgentId={activeAgentId}
-            />
-          </div>
-          <CodePreview files={sampleFiles} />
-        </main>
-      </div>
+        <Sidebar
+            collapsed={isSidebarCollapsed}
+            setCollapsed={setIsSidebarCollapsed}
+        />
+        <div className="flex-1 flex flex-col min-w-0">
+            <Header />
+            <main className="flex-1 flex overflow-hidden">
+                <div className="flex-1 flex flex-col min-w-0 border-r border-border">
+                    <AgentSelector
+                        agents={agents}
+                        activeAgentId={activeAgentId}
+                        onSelectAgent={setActiveAgentId}
+                    />
+                    <ChatInterface
+                        messages={messages}
+                        onSendMessage={handleSendMessage}
+                        activeAgentId={activeAgentId}
+                    />
+                </div>
+                <CodePreview files={sampleFiles} />
+            </main>
+        </div>
     </div>
-  );
+    );
 }`,
-    'App.tsx': `import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Index from './pages/Index';
-import NotFound from './pages/NotFound';
+    'App.tsx': `import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+    import Index from './pages/Index';
+    import NotFound from './pages/NotFound';
 
-function App() {
+    function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+        <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="*" element={<NotFound />} />
+        </Routes>
     </Router>
-  );
+    );
 }
 
-export default App;`
+    export default App;`
 };
 
 const FileIcon = ({ name }) => {
@@ -216,6 +217,9 @@ export const WorkspacePanel = () => {
                 </div>
 
                 <div className="flex items-center gap-2 relative">
+                    <div className="mr-2 scale-75 origin-right">
+                        <MgxAvatarGroup showAddButton={false} />
+                    </div>
                     <button
                         onClick={() => setShowIntegrations(!showIntegrations)}
                         className={`p-2 transition-colors ${showIntegrations ? 'text-black bg-black/5 rounded-md' : 'text-zinc-500 hover:text-black'}`}
