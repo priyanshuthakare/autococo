@@ -3,10 +3,10 @@ import { Plus } from 'lucide-react';
 
 export const AutocopilotAvatarGroup = ({ showAddButton = true }) => {
     const avatars = [
-        { src: '/agent1.png', label: 'Agent 1' },
-        { src: '/agent2.png', label: 'Agent 2' },
-        { src: '/agent3.png', label: 'Agent 3' },
-        { src: '/agent4.png', label: 'Agent 4' },
+        { src: '/agent1.png', label: 'Comet' },
+        { src: '/agent2.png', label: 'Nova' },
+        { src: '/agent3.png', label: 'Cosmo' },
+        { src: '/agent4.png', label: 'Stella' },
     ];
 
     return (

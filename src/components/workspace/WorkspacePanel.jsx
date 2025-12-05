@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Eye, Code, Smartphone, Monitor, RefreshCw, ExternalLink, Plug, ChevronRight, ChevronDown, File, Folder, FileJson, FileCode, Search } from 'lucide-react';
 import { AutocopilotAvatarGroup } from '../autocopilot/AutocopilotAvatarGroup';
+import { LiveRenderPanel } from '../../preview/LiveRenderPanel';
 
 // Mock File System Data
 const initialFileSystem = [
@@ -282,31 +283,14 @@ export const WorkspacePanel = () => {
             {/* Content Area */}
             <div className="flex-1 overflow-hidden bg-zinc-100 relative">
                 {activeTab === 'preview' ? (
-                    <div className="w-full h-full flex items-center justify-center p-8 overflow-y-auto custom-scrollbar">
+                    <div className="w-full h-full flex items-center justify-center p-4 overflow-hidden">
                         <div
-                            className={`bg-white transition-all duration-300 shadow-2xl overflow-hidden ${viewMode === 'mobile'
+                            className={`transition-all duration-300 shadow-2xl overflow-hidden ${viewMode === 'mobile'
                                 ? 'w-[375px] h-[812px] rounded-[3rem] border-8 border-zinc-800'
-                                : 'w-full h-full rounded-xl border border-zinc-200 '
+                                : 'w-full h-full rounded-xl border border-zinc-200'
                                 }`}
                         >
-                            <iframe
-                                src="about:blank" // Placeholder for actual preview
-                                title="Preview"
-                                className="w-full h-full bg-white"
-                            />
-                            {/* Overlay for mock demonstration since iframe is empty */}
-                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                <div className={`text-center p-6 ${viewMode === 'mobile' ? 'text-black' : 'text-zinc-900 '}`}>
-                                    <div className="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                                        <Monitor className="text-blue-500 " size={32} />
-                                    </div>
-                                    <h3 className="text-lg font-medium mb-2">App Preview</h3>
-                                    <p className="text-sm text-zinc-500 max-w-xs mx-auto">
-                                        Your generated application will appear here.
-                                        Interact with the chat to build something.
-                                    </p>
-                                </div>
-                            </div>
+                            <LiveRenderPanel />
                         </div>
                     </div>
                 ) : (
